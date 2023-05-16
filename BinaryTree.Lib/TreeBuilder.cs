@@ -11,14 +11,6 @@ namespace BinaryTree.Lib
     /// </summary>
     public class TreeBuilder
     {
-        private int[]? _data;
-
-        public TreeBuilder(int[] arr) { }
-
-        public Node CreateOrdered(int id)
-        {
-            Node node = new Node(id);
-            return node;
-        }
+        
     }
 }
