@@ -2,14 +2,10 @@
 {
     public partial class Node<O> : IDisposable
     {
-        public O Value { get; set; }
+        public O? Value { get; set; }
         public Node<O>? LeftNode { get; set; }
         public Node<O>? RightNode { get; set; }
-
-        public Node(O value)
-        {
-            Value = value;
-        }
+        public Node(O value) { Value = value; }
 
         public Node(O value, Node<O>? leftNode, Node<O>? rightNode) : this(value)
         {

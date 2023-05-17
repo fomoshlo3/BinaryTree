@@ -51,14 +51,14 @@ internal class Program
         return GetMedian(arr.Length);
     }
     /// <summary>
-    /// Calculates integer median
+    /// Calculates  median
     /// </summary>
     /// <param name="size"></param>
-    /// <returns>median floored as integer if size is greater 1, otherwise 0</returns>
+    /// <returns>median if size is greater 1, otherwise 0</returns>
     public static int GetMedian(int size)
     {
         if (size > 1)
-            return (int)Math.Floor(size / 2d);
+            return (int)(size / 2d);
         return 0;
     }
 
