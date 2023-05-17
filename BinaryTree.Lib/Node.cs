@@ -18,13 +18,10 @@
             throw new NotImplementedException();
         }
 
-
         public void SetLeftNode(Node<O> node) => LeftNode = node;
         public void SetRightNode(Node<O> node) => RightNode = node;
-
         public Node<O>? GetLeftNode() => LeftNode;
         public Node<O>? GetRightNode() => RightNode;
-
         public override string? ToString() => "Id: " + Value?.ToString();
     }
 }
