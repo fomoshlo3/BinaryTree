@@ -9,8 +9,6 @@
         public Node(O value)
         {
             Value = value;
-            LeftNode = null;
-            RightNode = null;
         }
 
         public Node(O value, Node<O>? leftNode, Node<O>? rightNode) : this(value)
@@ -31,6 +29,6 @@
         public Node<O>? GetLeftNode() => LeftNode;
         public Node<O>? GetRightNode() => RightNode;
 
-        public override string? ToString() => Value?.ToString();
+        public override string? ToString() => "Id: " + Value?.ToString();
     }
 }
