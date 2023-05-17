@@ -15,7 +15,7 @@
         {
             LeftNode = leftNode;
             RightNode = rightNode;
-        }   
+        }
 
         public void Dispose()
         {
