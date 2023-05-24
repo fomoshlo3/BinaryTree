@@ -5,7 +5,7 @@
     /// </summary>
     public static class BinTree
     {
-        /// <summary>
+   /// <summary>
         /// Recursively builds a binary tree from a given array of int values
         /// </summary>
         /// <param name="values"></param>
@@ -34,22 +34,35 @@
             }
         }
 
+        public static Node? GetMaxLeft(Node root)
+        {
+            while(root.LeftChild != null)
+                return GetMaxLeft(root.LeftChild);
+            return root;
+        }
 
-        /// <summary>
+        public static Node? GetMaxRight(Node root)
+        {
+            while (root.RightChild != null)
+                return GetMaxRight(root.RightChild);
+            return root;
+        }
+
+/// <summary>
         /// Searches a tree for a value, if non existent returns the value of last Node checked (which would also be the "nearest" to thus value by logic)
         /// </summary>
         /// <param name="node"></param>
-        /// <param name="index"></param>
+        /// <param name="value"></param>
         /// <returns></returns>
-        public static Node Search(Node node, int index)
+        public static Node Search(this Node node, int value)
         {
-            if (index < node.Value && node.LeftChild != null)
+            if (value < node.Value && node.LeftChild != null)
             {
-                return Search(node.LeftChild, index);
+                return Search(node.LeftChild, value);
             }
-            if (index > node.Value && node.RightChild != null)
+            if (value > node.Value && node.RightChild != null)
             {
-                return Search(node.RightChild, index);
+                return Search(node.RightChild, value);
             }
             return node;
         }
@@ -60,14 +73,14 @@
         /// <param name="node"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static Node? Insert(Node node,int value)
+        public static Node? Insert(this Node node,int value)
         {
             var lastNode = Search(node, value);
             if (lastNode.Value > value)
             {
                 return lastNode.LeftChild = new(value);
             }
-            if (lastNode.Value > value)
+            if (lastNode.Value < value)
             {
                 return lastNode.RightChild = new(value);
             }
