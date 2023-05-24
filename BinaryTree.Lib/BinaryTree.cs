@@ -1,4 +1,6 @@
-﻿namespace BinaryTree.Lib
+﻿using System.Linq;
+
+namespace BinaryTree.Lib
 {
     /// <summary>
     /// Recursive Methods for building a Binary Tree, we use the node class here
@@ -34,6 +36,50 @@
             }
         }
 
+        #region Unbox
+        /// <summary>
+        /// recursively unboxes all nodes in a given tree
+        /// by default: ascending
+        /// with option set to one : descending
+        /// 
+        /// more options may come soon :)
+        /// </summary>
+        /// <param name="root"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        public static int?[] Unbox(Node root, int? options)
+        {
+            Stack<int?> values = new Stack<int?>();
+            switch (options)
+            {
+                case 1: values = UnboxDescending(root, values); break;
+                default: values = UnboxAscending(root, values);break;
+            }
+            return values.ToArray();
+        }
+
+        private static Stack<int?> UnboxDescending(Node node, Stack<int?> values)
+        { 
+            if(node.LeftChild != null) UnboxDescending(node.LeftChild, values);
+            values.Push(node.Value);
+            if(node.RightChild != null) UnboxDescending(node.RightChild, values);
+            return values;
+        }
+
+        private static Stack<int?> UnboxAscending(Node node, Stack<int?> values)
+        {
+            if (node.RightChild != null) UnboxAscending(node.RightChild, values);
+            values.Push(node.Value);
+            if (node.LeftChild != null) UnboxAscending(node.LeftChild, values);
+            return values;
+        }
+        #endregion
+
+        /// <summary>
+        /// returns node with smallest id value in tree 
+        /// </summary>
+        /// <param name="root"></param>
+        /// <returns></returns>
         public static Node? GetMaxLeft(Node root)
         {
             while(root.LeftChild != null)
@@ -41,6 +87,11 @@
             return root;
         }
 
+        /// <summary>
+        /// returns node with biggest id value
+        /// </summary>
+        /// <param name="root"></param>
+        /// <returns></returns>
         public static Node? GetMaxRight(Node root)
         {
             while (root.RightChild != null)
@@ -48,7 +99,7 @@
             return root;
         }
 
-/// <summary>
+        /// <summary>
         /// Searches a tree for a value, if non existent returns the value of last Node checked (which would also be the "nearest" to thus value by logic)
         /// </summary>
         /// <param name="node"></param>
@@ -56,14 +107,8 @@
         /// <returns></returns>
         public static Node Search(this Node node, int value)
         {
-            if (value < node.Value && node.LeftChild != null)
-            {
-                return Search(node.LeftChild, value);
-            }
-            if (value > node.Value && node.RightChild != null)
-            {
-                return Search(node.RightChild, value);
-            }
+            if (value < node.Value && node.LeftChild != null) return Search(node.LeftChild, value);
+            if (value > node.Value && node.RightChild != null) return Search(node.RightChild, value);
             return node;
         }
 
@@ -76,17 +121,16 @@
         public static Node? Insert(this Node node,int value)
         {
             var lastNode = Search(node, value);
-            if (lastNode.Value > value)
-            {
-                return lastNode.LeftChild = new(value);
-            }
-            if (lastNode.Value < value)
-            {
-                return lastNode.RightChild = new(value);
-            }
+            if (lastNode.Value > value) return lastNode.LeftChild = new(value);
+            if (lastNode.Value < value) return lastNode.RightChild = new(value);
             return null;
         }
 
+        #region Not thought through
+        /// <summary>
+        /// TODO: Should be a optional Method or Task for self-balancing, thus maybe another name.
+        /// </summary>
+        /// <param name="rootNode"></param>
         public static void SortTree(Node rootNode)
         {
            //take the value of Node and Compare to left and right child 
@@ -98,6 +142,7 @@
             n1 = n2;
             n2 = temp;
         }
+        #endregion
 
         /// <summary>
         /// Calculates Median
@@ -127,7 +172,6 @@
         {
             if (size % 2 == 0) return size / 2 - 1;
             return size / 2;
-            
         }
     }
 }

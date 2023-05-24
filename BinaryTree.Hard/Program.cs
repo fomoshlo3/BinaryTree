@@ -10,30 +10,50 @@ internal class Program
 
 
         int[] insertArray = { 81, 69, 4, 110, 74 };
-        //Test Arrays unsorted
-        int[] concatenatedArray = evenArray;
 
-        
-        
-        Array.Sort(concatenatedArray);
-        Node concatBST = BinTree.Create(concatenatedArray);
-
+        #region Rekursives erstellen eines Binären Suchbaumes aus einem sortierten Array.
         Node oddBST = BinTree.Create(oddArray);
         Node evenBST = BinTree.Create(evenArray);
-
+        #endregion
+        #region Ausgabe größter und kleinster Wert im Baum
         Node? max_left_node = BinTree.GetMaxLeft(oddBST);
+        Node? max_right_node = BinTree.GetMaxRight(oddBST);
 
-        //Console.WriteLine(BinTree.Search(oddBST, 28));
-        //Console.WriteLine(BinTree.Search(evenBST, 6));
-        //Console.WriteLine(BinTree.Search(evenBST, 11));
-        //BinTree.Insert(oddBST, 28);
-        foreach (int i in insertArray)
+        #endregion
+        #region Ausgabe aufsteigend / absteigend
+        int?[] unboxedAscendingBeforeInsert = BinTree.Unbox(oddBST, default);
+        int?[] unboxedDescendingBeforeInsert = BinTree.Unbox(oddBST, 1);
+
+        Console.WriteLine($"Ascending: {nameof(oddBST)}");
+        foreach (int? i in unboxedAscendingBeforeInsert)Console.Write($"{i} ,");
+        Console.WriteLine();
+
+        
+        Console.WriteLine($"Descending: {nameof(oddBST)} ");
+        foreach (int? i in unboxedDescendingBeforeInsert) Console.Write($"{i} ,");
+        Console.WriteLine();
+        #endregion
+        #region Insert und abermals Ausgabe
+        foreach (int i in insertArray) { oddBST.Insert(i); }
+
+        int?[] unboxedAscendingAfterInsert = BinTree.Unbox(oddBST, default);
+        int?[] unboxedDescendingAfterInsert = BinTree.Unbox(oddBST, 1);
+        
+        Console.WriteLine($"Ascending: {nameof(oddBST)}");
+        foreach (int? i in unboxedAscendingAfterInsert)
         {
-            oddBST.Insert(i);
-            oddBST.Search(i);
-            evenBST.Insert(i);
-            evenBST.Search(i);
+            Console.Write($"{i} ,");
         }
+        Console.WriteLine();
+
+        Console.WriteLine($"Descending: {nameof(oddBST)} ");
+        foreach (int? i in unboxedDescendingAfterInsert)
+        {
+            Console.Write($"{i} ,");
+        }
+        Console.WriteLine();
+        #endregion
+
         Console.ReadKey();
     }
 }
